@@ -1,0 +1,6 @@
+node_modules
+dist
+build
+eslint.cjs
+vite.config.ts
+.eslint.cjs
