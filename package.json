@@ -21,17 +21,19 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.1",
-    "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "prettier": "^3.6.2",
     "stylelint": "^16.21.0",
     "stylelint-config-standard": "^38.0.0",
     "typescript": "~5.8.3",
     "vite": "^7.0.0",
-    "vite-plugin-stylelint": "^6.0.0"
+    "vite-plugin-stylelint": "^6.0.0",
+    "husky": "^8.0.0"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*/*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "npx eslint --fix",
       "eslint --fix",
       "git add"
     ]
