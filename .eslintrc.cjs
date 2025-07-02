@@ -33,6 +33,31 @@ module.exports = {
     'class-methods-use-this': 'off',
     'max-len': ['error', { code: 120 }],
     indent: ['error', 2],
+    // Пустые строки
+    'no-multiple-empty-lines': ['error', { max: 2, maxEOF: 1, maxBOF: 0 }],
+    // Пустая строка перед функциями и классами
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: '*', next: ['function', 'class'] },
+      { blankLine: 'any', prev: ['function', 'class'], next: '*' },
+    ],
+    // пробелы внутри объектов, массивов, вызовов
+    'block-spacing': ['error', 'always'], // пробел внутри блоков {}
+    'array-bracket-spacing': ['error', 'never'], // без пробелов внутри []
+    'object-curly-spacing': ['error', 'always'], // с пробелами внутри {}
+    'func-call-spacing': ['error', 'never'], // без пробелов между именем функции и (
+    'space-infix-ops': ['error', { int32Hint: false }], // пробелы вокруг операторов
+
+    // Новые правила ESLint и TypeScript
+    '@typescript-eslint/consistent-type-assertions': ['error', { assertionStyle: 'never' }],
+    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'error',
+    '@typescript-eslint/explicit-member-accessibility': [
+      'error',
+      { accessibility: 'explicit', overrides: { constructors: 'off' } },
+    ],
+    '@typescript-eslint/member-ordering': 'error',
+    'semi-spacing': ['error', { before: false, after: false }],
   },
   settings: {
     'import/resolver': {
