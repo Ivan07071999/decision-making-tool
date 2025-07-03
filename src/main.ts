@@ -33,3 +33,8 @@ function init(): void {
 }
 
 init();
+
+// const input: HTMLInputElement = document.querySelector('#input-id-1');
+// // console.log(input.value, 'value')
+// const button: HTMLButtonElement = document.querySelector('.save-button');
+// button.addEventListener('click', () => { console.log(input.value, 'value'); });

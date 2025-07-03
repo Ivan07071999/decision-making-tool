@@ -1,5 +1,6 @@
 // import MainSection from '../../app';
 import CustomList from '../list/list';
+import ListSaver from '../../services/localStorage';
 import './buttons.css';
 
 // type callback<T> = (data: T) => void;
@@ -53,6 +54,7 @@ class CustomButtons extends CustomList {
     this.clearButton.className = 'button clear-button';
     this.clearButton.textContent = 'Clear List';
     this.section.appendChild(this.clearButton);
+
     this.clearButton.addEventListener('click', () => {
       this.listRef.clearList();
     });
@@ -63,6 +65,13 @@ class CustomButtons extends CustomList {
     this.saveButton.className = 'button save-button';
     this.saveButton.textContent = 'Save list to file';
     this.section.appendChild(this.saveButton);
+
+    const listSaver = new ListSaver('My List');
+    this.saveButton.addEventListener('click', () => {
+      console.log('fdsfs');
+      listSaver.saveListToLocalStorage();
+      console.log('fdsfs');
+    });
   }
 
   public createLoadListButton(): void {

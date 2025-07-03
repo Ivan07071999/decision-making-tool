@@ -4,7 +4,7 @@ import './list.css';
 class CustomList extends MainSection {
   public listContainer!: HTMLElement;
 
-  private itemCount: number = 0;
+  protected itemCount: number = 0;
 
   constructor(title: string) {
     super(title);
@@ -46,6 +46,7 @@ class CustomList extends MainSection {
     item.appendChild(deleteButton);
 
     this.listContainer.appendChild(item);
+    console.log(this.itemCount)
   }
 
   public createList(): void {
@@ -57,6 +58,7 @@ class CustomList extends MainSection {
 
   public clearList(): void {
     let child: ChildNode | null = this.listContainer.firstChild;
+    this.itemCount = 0;
     while (child) {
       this.listContainer.removeChild(child);
       child = this.listContainer.firstChild;
