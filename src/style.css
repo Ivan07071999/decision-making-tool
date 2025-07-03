@@ -1,3 +1,24 @@
-div {
-  color: bisque;
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100dvh;
+  font-family: Damion, cursive;
+  margin: 0;
+  background-color: #313131;
+  background-image: radial-gradient(#FFFFFF29 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px
+}
+
+.main {
+  width: 680px;
+  border: 1px solid black;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.main-header {
+  font-size: 2rem;
+  text-align: center;
 }

@@ -1,0 +1,103 @@
+.list-item {
+  display: flex;
+  width: 99%;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  padding: 5px;
+  gap: 1px;
+  border-radius: 10px;
+  background-color: #313131;
+  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #444,
+    inset -5px -5px 10px #222;
+}
+
+.label {
+  width: 5%;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  background: #333;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #444,
+    inset -5px -5px 10px #222;
+  font-family: Damion, cursive;
+  cursor: pointer;
+  border: none;
+  transition: 500ms;
+}
+
+.label:hover {
+  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #222,
+    inset -5px -5px 10px #444;
+  color: #d6d6d6;
+  transition: 500ms;
+}
+
+.input {
+  font-family: Montserrat, sans-serif;
+  width: 100%;
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+  border: 0;
+  border-radius: 12px;
+  background-color: #16171d;
+  outline: none;
+  color: #bdbecb;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: text;
+  z-index: 0;
+}
+
+.input::placeholder {
+  color: #bdbecb;
+}
+
+.input:hover {
+  box-shadow: 0 0 0 2.5px #2f303d, 0 0 25px -15px #000;
+}
+
+.input:active {
+  transform: scale(0.95);
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2.5px #2f303d;
+}
+
+.input-title {
+  width: 60%;
+}
+
+.input-weight {
+  width: 10%;
+}
+
+.delete-button {
+  width: 10%;
+  font-size: 1rem;
+  border-radius: 10px;
+  background: #333;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #444,
+    inset -5px -5px 10px #222;
+  font-family: Damion, cursive;
+  cursor: pointer;
+  border: none;
+  transition: 500ms;
+}
+
+.delete-button:hover {
+  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #222,
+    inset -5px -5px 10px #444;
+  color: #d6d6d6;
+  transition: 500ms;
+}
+
+.custom-list {
+  padding: 5px;
+}
+
