@@ -1,9 +1,8 @@
 // import MainSection from '../../app';
 import CustomList from '../list/list';
-import ListSaver from '../../services/localStorage';
+import ListSaver from '../../services/downlocalStorage';
+// import { LoadFile } from '../../services/loadFile';
 import './buttons.css';
-
-// type callback<T> = (data: T) => void;
 
 class CustomButtons extends CustomList {
   public button!: HTMLElement;
@@ -68,9 +67,7 @@ class CustomButtons extends CustomList {
 
     const listSaver = new ListSaver('My List');
     this.saveButton.addEventListener('click', () => {
-      console.log('fdsfs');
       listSaver.saveListToLocalStorage();
-      console.log('fdsfs');
     });
   }
 
@@ -79,6 +76,13 @@ class CustomButtons extends CustomList {
     this.loadButton.className = 'button load-button';
     this.loadButton.textContent = 'Load list from file';
     this.section.appendChild(this.loadButton);
+
+    // const loadFile = new LoadFile('dfg');
+    // this.loadButton.addEventListener('click', () => {
+    //   this.listRef.clearList();
+    //   loadFile.loadListFromFile();
+
+    // });
   }
 
   public createStartButton(): void {

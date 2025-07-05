@@ -4,7 +4,7 @@ import './list.css';
 class CustomList extends MainSection {
   public listContainer!: HTMLElement;
 
-  protected itemCount: number = 0;
+  public itemCount: number = 0;
 
   constructor(title: string) {
     super(title);
@@ -46,7 +46,6 @@ class CustomList extends MainSection {
     item.appendChild(deleteButton);
 
     this.listContainer.appendChild(item);
-    console.log(this.itemCount)
   }
 
   public createList(): void {
