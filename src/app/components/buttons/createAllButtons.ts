@@ -28,7 +28,7 @@ class AllButtons extends Buttons {
     this.section.appendChild(this.clearListButton.getButtonElement());
     this.section.appendChild(this.saveListButton.getButtonElement());
     this.section.appendChild(this.loadListButton.getButtonElement());
-    this.section.appendChild(this.startButton.getButtonElement())
+    this.section.appendChild(this.startButton.getButtonElement());
   }
 }
 
