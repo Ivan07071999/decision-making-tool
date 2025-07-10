@@ -12,6 +12,12 @@ type ListData = {
   lastId: number;
 };
 
+type ListElements = {
+  titleInput: HTMLInputElement;
+  weightsInput: HTMLInputElement;
+  listLabel: HTMLLabelElement;
+};
+
 // type ListItemF = {
 //   titleInput: HTMLInputElement;
 //   weightsInput: HTMLInputElement;
@@ -22,6 +28,10 @@ class CustomList extends MainSection {
   protected listContainer!: HTMLElement;
 
   protected itemCount: number = 0;
+
+  protected pastList: HTMLElement = document.createElement('div');
+
+  protected textArea: HTMLTextAreaElement = document.createElement('textarea');
 
   private selectedFile: File | null = null;
 
@@ -37,11 +47,7 @@ class CustomList extends MainSection {
     this.section.appendChild(this.listContainer);
   }
 
-  public createListElement(): {
-    titleInput: HTMLInputElement;
-    weightsInput: HTMLInputElement;
-    listLabel: HTMLLabelElement;
-    } {
+  public createListElement(): ListElements {
     this.itemCount += 1;
     const item: HTMLElement = document.createElement('li');
     item.className = 'list-item';
@@ -58,7 +64,7 @@ class CustomList extends MainSection {
     input1.className = 'input input-title';
 
     const input2: HTMLInputElement = document.createElement('input');
-    input2.type = 'text';
+    input2.type = 'number';
     input2.placeholder = 'Weight';
     input2.className = 'input input-weight';
 
@@ -136,7 +142,6 @@ class CustomList extends MainSection {
     console.log('Данные перед сохранением:', dataToSave);
 
     localStorage.setItem('myListData', JSON.stringify(dataToSave));
-    this.downloadFile();
   }
 
   public downloadFile(): void {
@@ -225,7 +230,6 @@ class CustomList extends MainSection {
   }
 
   public addLoadItem(): void {
-
     if (!this.listContainer) {
       console.error('listContainer не найден');
       return;
@@ -255,9 +259,60 @@ class CustomList extends MainSection {
       newListItem.weightsInput.value = inputsArray[i].weight;
     }
 
-    console.log(this.listContainer, 'дш');
-    console.log('сработало');
     this.itemCount = inputsArray.length;
+  }
+
+  public createPasteList(): void {
+    this.pastList.className = 'past-list';
+    document.body.appendChild(this.pastList);
+    this.textArea.className = 'text-area';
+    this.textArea.rows = 12;
+    this.textArea.cols = 64;
+    this.textArea.focus();
+    this.textArea.placeholder = `Paste a list of new options in a CSV-like format:
+
+title,1                           -> | title                            | 1 |
+title with whitespace,2 -> | title with whitespace | 2 |
+title , with , commas,3 -> | title , with , commas  | 3 |
+title with "quotes",4      ->| title with "quotes";      | 4 |`;
+    this.textArea.name = 'table';
+    this.pastList.appendChild(this.textArea);
+  }
+
+  public textAreaToLocalStorage(): void {
+    const content = this.textArea.value.trim();
+
+    const lines = content.split('\n');
+
+    const list1: { id: string; title: string; weight: string }[] = [];
+    let lastId1 = 0;
+    let idNumber: number;
+
+    lines.forEach((line, index) => {
+      const parts = line.split(',');
+      if (parts.length === 2) {
+        const title1 = parts[0].trim();
+        const weight1 = parts[1].trim();
+        idNumber = index + 1;
+        list1.push({
+          id: `#${idNumber}`,
+          title: title1,
+          weight: weight1,
+        });
+        if (idNumber > lastId1) {
+          lastId1 = idNumber;
+        }
+      }
+    });
+
+    const result = {
+      list: list1,
+      lastId: lastId1,
+    };
+
+    localStorage.setItem('myListData', JSON.stringify(result));
+    this.itemCount = lines.length;
+    this.pastList.classList.remove('past-list-active');
   }
 }
 

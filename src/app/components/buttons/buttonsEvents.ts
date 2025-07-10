@@ -8,31 +8,39 @@ class EventButtons extends AllButtons {
 
   private addEventListeners(): void {
     this.addButton.getButtonElement().addEventListener('click', () => {
-      console.log('Add Button clicked');
       this.createListElement();
     });
 
     this.pasteButton.getButtonElement().addEventListener('click', () => {
-      console.log('Paste Button clicked');
+      this.pastList.classList.add('past-list-active');
+      this.textArea.value = '';
     });
 
     this.clearListButton.getButtonElement().addEventListener('click', () => {
-      console.log('Clear Button clicked');
       this.clearList();
     });
 
     this.saveListButton.getButtonElement().addEventListener('click', () => {
-      console.log('Save Button clicked');
       this.saveListToLocalStorage();
+      this.downloadFile();
     });
 
     this.loadListButton.getButtonElement().addEventListener('click', () => {
-      console.log('Load Button clicked');
       this.loadListFromFile();
     });
 
     this.startButton.getButtonElement().addEventListener('click', () => {
-      console.log('Start Button clicked');
+      this.saveListToLocalStorage();
+    });
+
+    this.confirmButton.getButtonElement().addEventListener('click', () => {
+      this.textAreaToLocalStorage();
+      this.clearList();
+      this.addLoadItem();
+    });
+
+    this.cancelButton.getButtonElement().addEventListener('click', () => {
+      this.pastList.classList.remove('past-list-active');
     });
   }
 }
