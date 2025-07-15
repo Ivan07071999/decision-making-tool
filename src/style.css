@@ -2,13 +2,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100dvh;
+  min-height: 100vh;
   font-family: Damion, cursive;
   margin: 0;
   background-color: #313131;
   background-image: radial-gradient(#FFFFFF29 2px, transparent 0);
   background-size: 30px 30px;
-  background-position: -5px -5px
+  background-position: -5px -5px;
 }
 
 .main {
@@ -18,7 +18,91 @@ body {
   padding: 10px;
 }
 
+.main-new-container {
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
 .main-header {
   font-size: 2rem;
   text-align: center;
 }
+
+.form {
+  display: grid;
+  grid-template-columns: 40px 40px 40px 40px;
+  grid-template-rows: 40px 40px;
+  width: 192px;
+  height: 84px;
+  gap: 4px;
+}
+
+.back-button {
+  background-image: url("app/assets/replyButton.png");
+  background-size: cover;
+  z-index: 2;
+  background-color: #313131;
+  border-radius: 0.7rem;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.back-button::before {
+  content: '';
+  z-index: 0;
+  width: 40px;
+}
+
+.button-spin {
+  background-color: #313131;
+  background-image: url("app/assets/start.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 190px;
+  border-radius: 1.3rem;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.label-timer {
+  border: 1px solid white;
+  background-color: #313131;
+  background-image: url("app/assets/timer.png");
+  background-size: cover;
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+
+.input-timer {
+  padding-left: 0;
+}
+
+.label-sound {
+  padding: 8px;
+  border: 1px solid white;
+  background-image: url("app/assets/volumeUp.png");
+  background-color: #313131;
+  background-size: contain;
+  border-radius: 0.7rem;
+  cursor: pointer;
+}
+
+.paragraph {
+  box-shadow: 0 0 8px 0 #313131;
+  width: 300px;
+  text-align: center;
+}
+
+.back-button:hover,
+.label-sound:hover,
+.label-timer:hover,
+.input-timer:hover,
+.button-spin:hover {
+  box-shadow: 0 0 8px 0 #cfc2c2;
+}
+
+

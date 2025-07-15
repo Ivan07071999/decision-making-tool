@@ -1,5 +1,5 @@
 import MainSection from '../../app';
-import './list.css';
+import './styleList.css';
 
 type ListItem = {
   id: string;
@@ -7,7 +7,7 @@ type ListItem = {
   weight: string;
 };
 
-type ListData = {
+export type ListData = {
   list: ListItem[];
   lastId: number;
 };
@@ -28,6 +28,8 @@ class CustomList extends MainSection {
   protected listContainer!: HTMLElement;
 
   protected itemCount: number = 0;
+
+  protected pastListContainer: HTMLElement = document.createElement('div');
 
   protected pastList: HTMLElement = document.createElement('div');
 
@@ -167,7 +169,7 @@ class CustomList extends MainSection {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     } catch (error) {
-      console.error(`Ошибка при парсинге данных: ${error}`);
+      console.error(`Ошибка: ${error}`);
     }
   }
 
@@ -191,7 +193,7 @@ class CustomList extends MainSection {
             this.addLoadItem();
           })
           .catch((error) => {
-            console.error('Ошибка при чтении файла:', error);
+            console.error('Ошибка:', error);
           });
       } else {
         console.log('Файлы не выбраны');
@@ -217,10 +219,8 @@ class CustomList extends MainSection {
           try {
             const jsonData = JSON.parse(result);
             localStorage.setItem('myListData', JSON.stringify(jsonData));
-            console.log('Данные успешно сохранены в localStorage');
             resolve();
           } catch (e) {
-            console.error('Ошибка парсинга JSON:', e);
             reject(e);
           }
         }
@@ -263,8 +263,12 @@ class CustomList extends MainSection {
   }
 
   public createPasteList(): void {
+    document.body.appendChild(this.pastListContainer);
+    this.pastListContainer.appendChild(this.pastList);
+
+    this.pastListContainer.className = 'past-list-container';
+
     this.pastList.className = 'past-list';
-    document.body.appendChild(this.pastList);
     this.textArea.className = 'text-area';
     this.textArea.rows = 12;
     this.textArea.cols = 64;
@@ -312,7 +316,7 @@ title with "quotes",4      ->| title with "quotes";      | 4 |`;
 
     localStorage.setItem('myListData', JSON.stringify(result));
     this.itemCount = lines.length;
-    this.pastList.classList.remove('past-list-active');
+    this.pastListContainer.classList.remove('past-list-active');
   }
 }
 

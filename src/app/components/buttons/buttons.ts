@@ -10,6 +10,10 @@ class Buttons extends CustomList {
     this.createAddButton(buttonsClassName, buttonsTextContent);
   }
 
+  // public addEventListener(arg0: string, arg1: () => void): void {
+  //   throw new Error('Method not implemented.');
+  // }
+
   public createAddButton(buttonsClassName: string, buttonsTextContent: string): void {
     this.button.className = buttonsClassName;
     this.button.textContent = buttonsTextContent;

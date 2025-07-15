@@ -5,8 +5,11 @@
   background: #333;
   justify-content: center;
   align-items: center;
-  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #444,
-    inset -5px -5px 10px #222;
+  box-shadow: 
+  -5px -5px 15px #444, 
+  5px 5px 15px #222, 
+  inset 5px 5px 10px #444,
+  inset -5px -5px 10px #222;
   font-family: Damion, cursive;
   cursor: pointer;
   border: none;
@@ -15,8 +18,11 @@
 }
 
 .button:hover {
-  box-shadow: -5px -5px 15px #444, 5px 5px 15px #222, inset 5px 5px 10px #222,
-    inset -5px -5px 10px #444;
+  box-shadow: 
+  -5px -5px 15px #444, 
+  5px 5px 15px #222, 
+  inset 5px 5px 10px #222,
+  inset -5px -5px 10px #444;
   color: #d6d6d6;
   transition: 500ms;
 }

@@ -1,18 +1,23 @@
+import { Name } from '../../services/loadFile';
 import AllButtons from './createAllButtons';
 
 class EventButtons extends AllButtons {
+  [x: string]: any;
+
   constructor() {
     super();
+    this.consoleService = new Name();
     this.addEventListeners();
   }
 
   private addEventListeners(): void {
+    this.consoleService.console();
     this.addButton.getButtonElement().addEventListener('click', () => {
       this.createListElement();
     });
 
     this.pasteButton.getButtonElement().addEventListener('click', () => {
-      this.pastList.classList.add('past-list-active');
+      this.pastListContainer.classList.add('past-list-active');
       this.textArea.value = '';
     });
 
@@ -40,7 +45,7 @@ class EventButtons extends AllButtons {
     });
 
     this.cancelButton.getButtonElement().addEventListener('click', () => {
-      this.pastList.classList.remove('past-list-active');
+      this.pastListContainer.classList.remove('past-list-active');
     });
   }
 }
