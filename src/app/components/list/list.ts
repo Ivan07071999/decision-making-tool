@@ -18,12 +18,6 @@ type ListElements = {
   listLabel: HTMLLabelElement;
 };
 
-// type ListItemF = {
-//   titleInput: HTMLInputElement;
-//   weightsInput: HTMLInputElement;
-//   listLabel: HTMLLabelElement;
-// };
-
 class CustomList extends MainSection {
   protected listContainer!: HTMLElement;
 
