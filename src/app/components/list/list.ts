@@ -318,6 +318,15 @@ title with "quotes",4      ->| title with "quotes";      | 4 |`;
     this.itemCount = lines.length;
     this.pastListContainer.classList.remove('past-list-active');
   }
+
+  public hiddenMainContainerElements(): void {
+    let child: ChildNode | null = this.section.firstChild;
+    while (child) {
+      this.section.removeChild(child);
+      child = this.section.firstChild;
+    }
+    this.section.classList.add('main-new-container');
+  }
 }
 
 export default CustomList;

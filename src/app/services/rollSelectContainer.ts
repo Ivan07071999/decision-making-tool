@@ -11,14 +11,14 @@ import EventButtons from '../components/buttons/buttonsEvents';
 // };
 
 class RollSelectContainer extends EventButtons {
-  public hiddenMainContainerElements(): void {
-    let child: ChildNode | null = this.section.firstChild;
-    while (child) {
-      this.section.removeChild(child);
-      child = this.section.firstChild;
-    }
-    this.section.classList.add('main-new-container');
-  }
+  // public hiddenMainContainerElements(): void {
+  //   let child: ChildNode | null = this.section.firstChild;
+  //   while (child) {
+  //     this.section.removeChild(child);
+  //     child = this.section.firstChild;
+  //   }
+  //   this.section.classList.add('main-new-container');
+  // }
 
   // public createFormElements(): sectionElements {
   //   const form = document.createElement('form');

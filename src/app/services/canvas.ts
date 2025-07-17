@@ -1,5 +1,5 @@
 import EventButtons from '../components/buttons/buttonsEvents';
-import type { ListData } from '../components/list/list';
+// import type { ListData } from '../components/list/list';
 import './rollStyle.css';
 
 // type sectionElements = {
@@ -36,19 +36,20 @@ class CreateCanvas extends EventButtons {
   private getData = localStorage.getItem('myListData');
 
   // private data: ListData = JSON.parse(this.getData);
-  private data: ListData = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
+  // private data: ListData = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
 
-  // private data = {
-  //   list: [
-  //     { id: '#1', title: 'валера', weight: 5 },
-  //     { id: '#2', title: 'валера2', weight: 3 },
-  //     { id: '#3', title: 'валера 3', weight: 7 },
-  //   ],
-  //   lastId: 3,
-  // };
+  private data = {
+    list: [
+      { id: '#1', title: 'валера', weight: 5 },
+      { id: '#2', title: 'валера2', weight: 3 },
+      { id: '#3', title: 'валера 3', weight: 7 },
+    ],
+    lastId: 3,
+  };
 
   constructor() {
     super();
+    console.log('отработало')
     this.init();
   }
 
@@ -77,8 +78,15 @@ class CreateCanvas extends EventButtons {
       }
 
       if (target.classList.contains('back-button')) {
-        // event.stopPropagation();
+        event.stopPropagation();
         this.hiddenMainContainerElements();
+        this.section.classList.remove('main-new-container');
+        this.itemCount = 0;
+        this.createCustomListContainer();
+        this.createListElement();
+        this.createAllButtons()
+        this.addEventListeners()
+        console.log(this.section)
       }
     });
 
@@ -209,8 +217,6 @@ class CreateCanvas extends EventButtons {
 
       const currentAngle = (this.rotationAngle % (Math.PI * 2)) + Math.PI;
       console.log(currentAngle, 'Обновленный сектор');
-      // console.log(currentAngle * (180 / Math.PI), 'Текущий угол перед запуском');
-      // const currentAngle = ((this.rotationAngle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
       const currentSectorLabel = this.getSectorLabelByAngle(currentAngle);
       console.log(currentSectorLabel, 'Текущий сектор на барабане');
       this.par.textContent = `${currentSectorLabel}`;

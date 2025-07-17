@@ -1,17 +1,22 @@
-import { Name } from '../../services/loadFile';
+// import { Name } from '../../services/loadFile';
+// import CreateCanvas from '../../services/canvas';
 import AllButtons from './createAllButtons';
 
 class EventButtons extends AllButtons {
   [x: string]: any;
 
+  // private createCanvasInstance!: CreateCanvas;
+
   constructor() {
     super();
-    this.consoleService = new Name();
+    // this.consoleService = new Name();
+    // this.createCanvasInstance = new CreateCanvas();
     this.addEventListeners();
+    // this.createNewCanvas = new CreateCanvas();
   }
 
-  private addEventListeners(): void {
-    this.consoleService.console();
+  public addEventListeners(): void {
+    // this.consoleService.console();
     this.addButton.getButtonElement().addEventListener('click', () => {
       this.createListElement();
     });
@@ -36,6 +41,7 @@ class EventButtons extends AllButtons {
 
     this.startButton.getButtonElement().addEventListener('click', () => {
       this.saveListToLocalStorage();
+      // this.hiddenMainContainerElements();
     });
 
     this.confirmButton.getButtonElement().addEventListener('click', () => {
