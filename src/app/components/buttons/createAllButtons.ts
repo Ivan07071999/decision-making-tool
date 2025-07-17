@@ -20,25 +20,8 @@ class AllButtons extends Buttons {
 
   constructor() {
     super('className', 'textContent');
+    this.createModalButtons();
     this.createAllButtons();
-    // this.addButton = new Buttons('button add-button', 'Add Option');
-    // this.pasteButton = new Buttons('button paste-button', 'Paste List');
-    // this.clearListButton = new Buttons('button clear-button', 'Clear List');
-    // this.saveListButton = new Buttons('button save-button', 'Save list to file');
-    // this.loadListButton = new Buttons('button load-button', 'Load list from file');
-    // this.startButton = new Buttons('button start-button', 'Start');
-    // this.cancelButton = new Buttons('button', 'Cancel');
-    // this.confirmButton = new Buttons('button', 'Confirm');
-
-    // this.createPasteList();
-    // this.section.appendChild(this.addButton.getButtonElement());
-    // this.section.appendChild(this.pasteButton.getButtonElement());
-    // this.section.appendChild(this.clearListButton.getButtonElement());
-    // this.section.appendChild(this.saveListButton.getButtonElement());
-    // this.section.appendChild(this.loadListButton.getButtonElement());
-    // this.section.appendChild(this.startButton.getButtonElement());
-    // this.pastList.appendChild(this.confirmButton.getButtonElement());
-    // this.pastList.appendChild(this.cancelButton.getButtonElement());
   }
 
   public createAllButtons(): void {
@@ -48,8 +31,6 @@ class AllButtons extends Buttons {
     this.saveListButton = new Buttons('button save-button', 'Save list to file');
     this.loadListButton = new Buttons('button load-button', 'Load list from file');
     this.startButton = new Buttons('button start-button', 'Start');
-    this.cancelButton = new Buttons('button', 'Cancel');
-    this.confirmButton = new Buttons('button', 'Confirm');
 
     this.createPasteList();
     this.section.appendChild(this.addButton.getButtonElement());
@@ -58,6 +39,11 @@ class AllButtons extends Buttons {
     this.section.appendChild(this.saveListButton.getButtonElement());
     this.section.appendChild(this.loadListButton.getButtonElement());
     this.section.appendChild(this.startButton.getButtonElement());
+  }
+
+  public createModalButtons(): void {
+    this.cancelButton = new Buttons('button', 'Cancel');
+    this.confirmButton = new Buttons('button', 'Confirm');
     this.pastList.appendChild(this.confirmButton.getButtonElement());
     this.pastList.appendChild(this.cancelButton.getButtonElement());
   }

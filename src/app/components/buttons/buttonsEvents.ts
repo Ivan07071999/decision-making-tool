@@ -1,22 +1,20 @@
-// import { Name } from '../../services/loadFile';
-// import CreateCanvas from '../../services/canvas';
-import AllButtons from './createAllButtons';
+import CreateCanvas from '../../services/canvas';
 
-class EventButtons extends AllButtons {
-  [x: string]: any;
-
-  // private createCanvasInstance!: CreateCanvas;
+class EventButtons extends CreateCanvas {
+  [x: string]: unknown;
 
   constructor() {
     super();
-    // this.consoleService = new Name();
-    // this.createCanvasInstance = new CreateCanvas();
+    this.hiddenMainContainerElements();
+    this.itemCount = 0;
+    this.section.classList.remove('main-new-container');
+    this.createCustomListContainer();
+    this.createListElement();
+    this.createAllButtons();
     this.addEventListeners();
-    // this.createNewCanvas = new CreateCanvas();
   }
 
   public addEventListeners(): void {
-    // this.consoleService.console();
     this.addButton.getButtonElement().addEventListener('click', () => {
       this.createListElement();
     });
@@ -40,8 +38,7 @@ class EventButtons extends AllButtons {
     });
 
     this.startButton.getButtonElement().addEventListener('click', () => {
-      this.saveListToLocalStorage();
-      // this.hiddenMainContainerElements();
+      this.runCanvas();
     });
 
     this.confirmButton.getButtonElement().addEventListener('click', () => {
@@ -53,6 +50,14 @@ class EventButtons extends AllButtons {
     this.cancelButton.getButtonElement().addEventListener('click', () => {
       this.pastListContainer.classList.remove('past-list-active');
     });
+  }
+
+  public runCanvas(): void {
+    if (this.dataValidationCheck() === 1) {
+      this.saveListToLocalStorage();
+      this.hiddenMainContainerElements();
+      this.init();
+    }
   }
 }
 

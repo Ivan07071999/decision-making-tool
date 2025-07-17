@@ -92,6 +92,7 @@
   width: 10%;
 }
 
+.validation-button,
 .delete-button {
   width: 10%;
   font-size: 1rem;
@@ -110,6 +111,7 @@
   transition: 500ms;
 }
 
+.validation-button:hover,
 .delete-button:hover {
   box-shadow: -5px -5px 15px #444, 
   5px 5px 15px #222, 
@@ -123,6 +125,7 @@
   padding: 5px;
 }
 
+.validation-wrapper,
 .past-list-container {
   position: fixed;
   width: 100%;
@@ -133,11 +136,11 @@
   visibility: hidden;
 }
 
+.validation-container,
 .past-list {
   position: fixed;
   width: 590px;
   padding: 1rem;
-  height: 350px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -150,12 +153,14 @@
   inset -5px -5px 10px #444;
 }
 
+.validation-container-active,
 .past-list-active {
   visibility: visible;
   opacity: 1;
   background: #ffffff05;
 }
 
+.validation-text,
 .text-area {
   font-family: Montserrat, sans-serif;
   width: 95%;
@@ -201,5 +206,11 @@
   box-shadow: 0 0 0 2.5px 
   #2f303d;
 }
+
+/* .validation-container {
+  position: fixed;
+  width: 680px;
+
+} */
 
 

@@ -1,5 +1,5 @@
-import EventButtons from '../components/buttons/buttonsEvents';
-// import type { ListData } from '../components/list/list';
+import AllButtons from '../components/buttons/createAllButtons';
+import type { ListData } from '../components/list/list';
 import './rollStyle.css';
 
 // type sectionElements = {
@@ -12,7 +12,11 @@ import './rollStyle.css';
 //   paragraph: HTMLParagraphElement;
 // };
 
-class CreateCanvas extends EventButtons {
+class CreateCanvas extends AllButtons {
+  public getData!: string | null;
+
+  public data!: ListData;
+
   private spinButton = document.createElement('div');
 
   private rotationAngle: number = 0;
@@ -33,27 +37,14 @@ class CreateCanvas extends EventButtons {
 
   private par = document.createElement('p');
 
-  private getData = localStorage.getItem('myListData');
-
-  // private data: ListData = JSON.parse(this.getData);
-  // private data: ListData = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
-
-  private data = {
-    list: [
-      { id: '#1', title: 'валера', weight: 5 },
-      { id: '#2', title: 'валера2', weight: 3 },
-      { id: '#3', title: 'валера 3', weight: 7 },
-    ],
-    lastId: 3,
-  };
-
   constructor() {
     super();
-    console.log('отработало')
     this.init();
   }
 
   public init(): void {
+    this.getData = localStorage.getItem('myListData');
+    this.data = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
     this.hiddenMainContainerElements();
     this.createFormElements();
     this.appendSection();
@@ -70,6 +61,9 @@ class CreateCanvas extends EventButtons {
       if (target.classList.contains('button-spin')) {
         event.stopPropagation();
 
+        this.form.style.pointerEvents = 'none';
+        this.form.style.opacity = '0.6';
+
         const seconds = Number(this.timerInput.value);
         const duration = seconds * 1000;
 
@@ -83,10 +77,9 @@ class CreateCanvas extends EventButtons {
         this.section.classList.remove('main-new-container');
         this.itemCount = 0;
         this.createCustomListContainer();
-        this.createListElement();
-        this.createAllButtons()
-        this.addEventListeners()
-        console.log(this.section)
+        this.addLoadItem();
+        this.createAllButtons();
+        this.addEventListeners();
       }
     });
 
@@ -99,6 +92,10 @@ class CreateCanvas extends EventButtons {
         this.labelSound.style.backgroundImage = "url('/src/app/assets/volumeUp.png')";
       }
     });
+  }
+
+  public addEventListeners(): void {
+    throw new Error('Method not implemented.');
   }
 
   public stopSpin(): void {
@@ -131,16 +128,6 @@ class CreateCanvas extends EventButtons {
     this.spinButton.className = 'button-spin';
     this.par.className = 'paragraph';
     this.par.textContent = 'PRESS START BUTTON';
-
-    // return {
-    //   formContainer: form,
-    //   replyButton: backButton,
-    //   soundButton: labelSound,
-    //   timerButton: labelTimer,
-    //   timerIn: timerInput,
-    //   spinButt: spinButton,
-    //   paragraph: par,
-    // };
   }
 
   public hiddenMainContainerElements(): void {
@@ -240,6 +227,8 @@ class CreateCanvas extends EventButtons {
     setTimeout(
       () => {
         this.soundPlay();
+        this.form.style.pointerEvents = 'auto';
+        this.form.style.opacity = '1.0';
       },
       Number(this.timerInput.value) * 1000
     );
@@ -253,7 +242,7 @@ class CreateCanvas extends EventButtons {
     console.log(pointerPosition, 'позиция стрелки');
 
     // от 0 до 360- делаем нормальный диапазон
-    const normalizedPointer = ((pointerPosition + 2 * Math.PI) % (2 * Math.PI));
+    const normalizedPointer = (pointerPosition + 2 * Math.PI) % (2 * Math.PI);
     // const normalizedPointer = Math.PI / 2;
     console.log(normalizedPointer, 'нормализация стрелки');
 
@@ -310,7 +299,18 @@ class CreateCanvas extends EventButtons {
     // Общие параметры
     const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
     let startAngle = 0;
-    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F333FF', '#33FFF5'];
+    const colors = [
+      '#FF5733',
+      '#33FF57',
+      '#3357FF',
+      '#F333FF',
+      '#33FFF5',
+      '#FFBD33',
+      '#8D33FF',
+      '#33FFF1',
+      '#FF3380',
+      '#33FFBD',
+    ];
 
     this.data.list.forEach((item, index) => {
       const sectorAngle = (Number(item.weight) / totalWeight) * Math.PI * 2;

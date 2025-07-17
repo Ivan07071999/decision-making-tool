@@ -281,6 +281,8 @@ title , with , commas,3 -> | title , with , commas  | 3 |
 title with "quotes",4      ->| title with "quotes";      | 4 |`;
     this.textArea.name = 'table';
     this.pastList.appendChild(this.textArea);
+    this.pastList.style.display = 'flex';
+    this.pastList.style.flexDirection = 'column-reverse';
   }
 
   public textAreaToLocalStorage(): void {
@@ -326,6 +328,58 @@ title with "quotes",4      ->| title with "quotes";      | 4 |`;
       child = this.section.firstChild;
     }
     this.section.classList.add('main-new-container');
+  }
+
+  public dataValidationCheck(): number {
+    const listContainer = this.listContainer.childNodes.length;
+    console.log(listContainer);
+    const inputTitle: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-title');
+    const inputWeight: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-weight');
+    const titleArr: HTMLInputElement[] = Array.from(inputTitle);
+    const weightArr: HTMLInputElement[] = Array.from(inputWeight);
+    console.log(titleArr, weightArr);
+
+    if (listContainer < 2) {
+      this.createValidationWindow();
+      return 0;
+    }
+
+    for (let i = 0; i < titleArr.length; i += 1) {
+      if (titleArr[i].value.trim().length === 0 && weightArr[i].value === '') {
+        console.log('невалидная хуйня', titleArr.length);
+        this.createValidationWindow();
+        return 0;
+      }
+    }
+    return 1;
+  }
+
+  public createValidationWindow(): void {
+    const validationWrapper = document.createElement('div');
+    const validationContainer = document.createElement('div');
+    const validationText = document.createElement('p');
+    const validationCloseButton = document.createElement('button');
+
+    validationWrapper.className = 'validation-wrapper validation-container-active';
+    validationContainer.className = 'validation-container';
+    validationText.className = 'validation-text';
+    validationCloseButton.className = 'validation-button';
+
+    validationText.textContent = `Please add at least 2 valid options.
+     An option is considered valid if its title is not empty and its weight is greater than 0`;
+
+    validationCloseButton.textContent = 'Close';
+    document.body.appendChild(validationWrapper);
+    validationWrapper.appendChild(validationContainer);
+    validationContainer.appendChild(validationText);
+    validationContainer.appendChild(validationCloseButton);
+
+    validationCloseButton.addEventListener('click', () => {
+      validationWrapper.classList.remove('validation-container-active');
+      setTimeout(() => {
+        validationWrapper.remove();
+      }, 3000);
+    });
   }
 }
 
