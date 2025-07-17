@@ -13,6 +13,8 @@ import './rollStyle.css';
 // };
 
 class CreateCanvas extends AllButtons {
+  public isLabelSoundListenerAdded = false;
+
   public getData!: string | null;
 
   public data!: ListData;
@@ -29,7 +31,7 @@ class CreateCanvas extends AllButtons {
 
   private backButton: HTMLButtonElement = document.createElement('button');
 
-  private labelSound = document.createElement('label');
+  private labelSound = document.createElement('div');
 
   private labelTimer = document.createElement('label');
 
@@ -37,15 +39,19 @@ class CreateCanvas extends AllButtons {
 
   private par = document.createElement('p');
 
+  private head = document.createElement('h1');
+
   constructor() {
     super();
     this.init();
   }
 
   public init(): void {
+    localStorage.setItem('audioState', 'play');
     this.getData = localStorage.getItem('myListData');
     this.data = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
     this.hiddenMainContainerElements();
+    this.createHad();
     this.createFormElements();
     this.appendSection();
     this.createCanvasElements();
@@ -76,6 +82,7 @@ class CreateCanvas extends AllButtons {
         this.hiddenMainContainerElements();
         this.section.classList.remove('main-new-container');
         this.itemCount = 0;
+        this.createHad();
         this.createCustomListContainer();
         this.addLoadItem();
         this.createAllButtons();
@@ -83,7 +90,18 @@ class CreateCanvas extends AllButtons {
       }
     });
 
-    this.labelSound.addEventListener('click', () => {
+    this.setupLabelSoundClick();
+  }
+
+  public setupLabelSoundClick(): void {
+    if (this.isLabelSoundListenerAdded) return;
+    this.isLabelSoundListenerAdded = true;
+
+    this.labelSound.addEventListener('click', (event: MouseEvent) => {
+      event.stopPropagation();
+      event.preventDefault();
+      console.log('labelSound clicked');
+
       if (localStorage.getItem('audioState') === 'play') {
         localStorage.setItem('audioState', 'silence');
         this.labelSound.style.backgroundImage = "url('/src/app/assets/volumeOff.png')";
@@ -91,6 +109,7 @@ class CreateCanvas extends AllButtons {
         localStorage.setItem('audioState', 'play');
         this.labelSound.style.backgroundImage = "url('/src/app/assets/volumeUp.png')";
       }
+      console.log('labelSound clicked2');
     });
   }
 
@@ -128,6 +147,12 @@ class CreateCanvas extends AllButtons {
     this.spinButton.className = 'button-spin';
     this.par.className = 'paragraph';
     this.par.textContent = 'PRESS START BUTTON';
+  }
+
+  public createHad(): void {
+    this.head.className = 'main-header';
+    this.head.textContent = 'Decision Making Tool';
+    this.section.appendChild(this.head);
   }
 
   public hiddenMainContainerElements(): void {
@@ -262,24 +287,6 @@ class CreateCanvas extends AllButtons {
     }
     return '';
   }
-
-  // В случае необходимости - остановить вращение
-  // public stopSpin(): void {
-  //   if (this.animationId) {
-  //     cancelAnimationFrame(this.animationId);
-  //     this.animationId = null;
-  //   }
-  // }
-
-  // public createCanvasElements(): void {
-  //   const canvas = document.createElement('canvas');
-  //   canvas.width = 500;
-  //   canvas.height = 500;
-  //   this.section.appendChild(canvas);
-  //   const ctx = canvas.getContext('2d');
-  //   if (!ctx) throw new Error('Failed to get 2D context');
-  //   this.ctx = ctx;
-  // }
 
   private drawWheel(): void {
     const { ctx } = this;

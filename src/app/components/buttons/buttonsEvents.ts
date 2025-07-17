@@ -8,6 +8,7 @@ class EventButtons extends CreateCanvas {
     this.hiddenMainContainerElements();
     this.itemCount = 0;
     this.section.classList.remove('main-new-container');
+    this.createHad();
     this.createCustomListContainer();
     this.createListElement();
     this.createAllButtons();
