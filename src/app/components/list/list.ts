@@ -114,7 +114,6 @@ class CustomList extends MainSection {
     for (let i = 0; i < titleArr.length; i += 1) {
       const titleValue = titleArr[i].value;
       const weightValue = weightArr[i].value;
-      console.log(titleValue, weightValue);
 
       const idNumber = i + 1;
       const id1 = `#${idNumber}`;
@@ -134,8 +133,6 @@ class CustomList extends MainSection {
       list: list1,
       lastId: maxId,
     };
-
-    console.log('Данные перед сохранением:', dataToSave);
 
     localStorage.setItem('myListData', JSON.stringify(dataToSave));
   }

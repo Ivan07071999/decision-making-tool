@@ -81,6 +81,7 @@ class CreateCanvas extends AllButtons {
       }
 
       if (target.classList.contains('back-button')) {
+        event.preventDefault();
         event.stopPropagation();
         this.hiddenMainContainerElements();
         this.section.classList.remove('main-new-container');
@@ -178,7 +179,6 @@ class CreateCanvas extends AllButtons {
   }
 
   public startSpin(duration: number = 5000, fullCircles: number = 5): void {
-    // Выбор сектора
     const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
     console.log(totalWeight);
     const rand = Math.random();
@@ -273,7 +273,6 @@ class CreateCanvas extends AllButtons {
       const sectorFraction = Number(item.weight) / totalWeight;
       console.log(sectorFraction);
       const sectorAngle = sectorFraction * 2 * Math.PI;
-      // const helperNormalized = Math.PI;
 
       if (normalizedPointer >= startAngle && normalizedPointer < startAngle + sectorAngle) {
         return item.title;
