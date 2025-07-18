@@ -1,6 +1,9 @@
 import AllButtons from '../components/buttons/createAllButtons';
 import type { ListData } from '../components/list/list';
 import './rollStyle.css';
+import audioUrl from '../assets/sound.mp3';
+import volumeOffUrl from '../assets/volumeOff.png'
+import volumeUpUrl from '../assets/volumeUp.png';
 
 // type sectionElements = {
 //   formContainer: HTMLFormElement;
@@ -104,10 +107,10 @@ class CreateCanvas extends AllButtons {
 
       if (localStorage.getItem('audioState') === 'play') {
         localStorage.setItem('audioState', 'silence');
-        this.labelSound.style.backgroundImage = "url('/src/app/assets/volumeOff.png')";
+        this.labelSound.style.backgroundImage = `url(${volumeOffUrl})`;
       } else {
         localStorage.setItem('audioState', 'play');
-        this.labelSound.style.backgroundImage = "url('/src/app/assets/volumeUp.png')";
+        this.labelSound.style.backgroundImage = `url(${volumeUpUrl})`;
       }
       console.log('labelSound clicked2');
     });
@@ -219,7 +222,7 @@ class CreateCanvas extends AllButtons {
     const animate = (currentTime: number): void => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = 1 - (1 - progress) ** 3; // easing
+      const easedProgress = 1 - (1 - progress) ** 3;
 
       this.rotationAngle = initialAngle + easedProgress * totalRotation;
       console.log(this.rotationAngle * (180 / Math.PI) + Math.PI, 'Обновленный угол, начиная с текущего');
@@ -261,15 +264,8 @@ class CreateCanvas extends AllButtons {
 
   private getSectorLabelByAngle(currentRotation: number): string {
     const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
-
-    // куда указывает стрелка
     const pointerPosition = (Math.PI / 2 - currentRotation) % (2 * Math.PI);
-    console.log(pointerPosition, 'позиция стрелки');
-
-    // от 0 до 360- делаем нормальный диапазон
     const normalizedPointer = (pointerPosition + 2 * Math.PI) % (2 * Math.PI);
-    // const normalizedPointer = Math.PI / 2;
-    console.log(normalizedPointer, 'нормализация стрелки');
 
     let startAngle = 0;
     for (let i = 0; i < this.data.list.length; i += 1) {
@@ -385,7 +381,7 @@ class CreateCanvas extends AllButtons {
   private soundPlay(): void {
     if (localStorage.getItem('audioState') === 'silence') return;
 
-    const audio = new Audio('/src/app/assets/sound.mp3');
+    const audio = new Audio(audioUrl);
     audio.volume = 0.4;
     audio.play();
   }
