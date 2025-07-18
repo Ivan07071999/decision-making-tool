@@ -1,8 +1,8 @@
 import AllButtons from '../components/buttons/createAllButtons';
 import type { ListData } from '../components/list/list';
-import audioUrl from '../assets/sound.mp3';
-import volumeOffUrl from '../assets/volumeOff.png';
-import volumeUpUrl from '../assets/volumeUp.png';
+// import audioUrl from '../assets/sound.mp3';
+// import volumeOffUrl from '../assets/volumeOff.png';
+// import volumeUpUrl from '../assets/volumeUp.png';
 
 // type sectionElements = {
 //   formContainer: HTMLFormElement;
@@ -21,97 +21,97 @@ class CreateCanvas extends AllButtons {
 
   public data!: ListData;
 
-  private spinButton = document.createElement('div');
+  public labelSound = document.createElement('div');
 
-  private rotationAngle: number = 0;
+  public spinButton = document.createElement('div');
 
-  private animationId: number | null = null;
+  public rotationAngle: number = 0;
 
-  private ctx!: CanvasRenderingContext2D;
+  public animationId: number | null = null;
 
-  private form: HTMLFormElement = document.createElement('form');
+  public ctx!: CanvasRenderingContext2D;
 
-  private backButton: HTMLButtonElement = document.createElement('button');
+  public form: HTMLFormElement = document.createElement('form');
 
-  private labelSound = document.createElement('div');
+  public backButton: HTMLButtonElement = document.createElement('button');
 
-  private labelTimer = document.createElement('label');
+  public labelTimer = document.createElement('label');
 
-  private timerInput = document.createElement('input');
+  public timerInput = document.createElement('input');
 
-  private par = document.createElement('p');
+  public par = document.createElement('p');
 
-  private head = document.createElement('h1');
+  public head = document.createElement('h1');
 
-  constructor() {
-    super();
-    this.init();
-  }
+  // constructor() {
+  //   super();
+  //   this.init();
+  // }
 
-  public init(): void {
-    localStorage.setItem('audioState', 'play');
-    this.getData = localStorage.getItem('myListData');
-    this.data = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
-    this.hiddenMainContainerElements();
-    this.createHad();
-    this.createFormElements();
-    this.appendSection();
-    this.createCanvasElements();
-    this.drawStatic();
-    this.drawWheel();
-    this.setAudio();
+  // public init(): void {
+  //   localStorage.setItem('audioState', 'play');
+  //   this.getData = localStorage.getItem('myListData');
+  //   this.data = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
+  //   this.hiddenMainContainerElements();
+  //   this.createHad();
+  //   this.createFormElements();
+  //   this.appendSection();
+  //   this.createCanvasElements();
+  //   this.drawStatic();
+  //   this.drawWheel();
+  //   this.setAudio();
 
-    this.form.addEventListener('click', (event: Event): void => {
-      const { target } = event;
+  //   this.form.addEventListener('click', (event: Event): void => {
+  //     const { target } = event;
 
-      if (!(target instanceof HTMLElement)) return;
+  //     if (!(target instanceof HTMLElement)) return;
 
-      if (target.classList.contains('button-spin')) {
-        event.stopPropagation();
+  //     if (target.classList.contains('button-spin')) {
+  //       event.stopPropagation();
 
-        this.form.style.pointerEvents = 'none';
-        this.form.style.opacity = '0.6';
+  //       this.form.style.pointerEvents = 'none';
+  //       this.form.style.opacity = '0.6';
 
-        const seconds = Number(this.timerInput.value);
-        const duration = seconds * 1000;
+  //       const seconds = Number(this.timerInput.value);
+  //       const duration = seconds * 1000;
 
-        this.startSpin(duration, seconds);
-      }
+  //       this.startSpin(duration, seconds);
+  //     }
 
-      if (target.classList.contains('back-button')) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.hiddenMainContainerElements();
-        this.section.classList.remove('main-new-container');
-        this.itemCount = 0;
-        this.createHad();
-        this.createCustomListContainer();
-        this.addLoadItem();
-        this.createAllButtons();
-        this.addEventListeners();
-      }
-    });
+  //     if (target.classList.contains('back-button')) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //       this.hiddenMainContainerElements();
+  //       this.section.classList.remove('main-new-container');
+  //       this.itemCount = 0;
+  //       this.createHad();
+  //       this.createCustomListContainer();
+  //       this.addLoadItem();
+  //       this.createAllButtons();
+  //       this.addEventListeners();
+  //     }
+  //   });
 
-    this.setupLabelSoundClick();
-  }
+  //   this.setupLabelSoundClick();
+  // }
 
-  public setupLabelSoundClick(): void {
-    if (this.isLabelSoundListenerAdded) return;
-    this.isLabelSoundListenerAdded = true;
+  // public setupLabelSoundClick(): void {
+  //   if (this.isLabelSoundListenerAdded) return;
+  //   this.isLabelSoundListenerAdded = true;
 
-    this.labelSound.addEventListener('click', (event: MouseEvent) => {
-      event.stopPropagation();
-      event.preventDefault();
+  //   this.labelSound.addEventListener('click', (event: MouseEvent) => {
+  //     event.stopPropagation();
+  //     event.preventDefault();
 
-      if (localStorage.getItem('audioState') === 'play') {
-        localStorage.setItem('audioState', 'silence');
-        this.labelSound.style.backgroundImage = `url(${volumeOffUrl})`;
-      } else {
-        localStorage.setItem('audioState', 'play');
-        this.labelSound.style.backgroundImage = `url(${volumeUpUrl})`;
-      }
-    });
-  }
+  //     if (localStorage.getItem('audioState') === 'play') {
+  //       localStorage.setItem('audioState', 'silence');
+  //       this.labelSound.style.backgroundImage = `url(${volumeOffUrl})`;
+  //     } else {
+  //       localStorage.setItem('audioState', 'play');
+  //       this.labelSound.style.backgroundImage = `url(${volumeUpUrl})`;
+  //     }
+  //   });
+  // }
 
   public addEventListeners(): void {
     throw new Error('Method not implemented.');
@@ -155,14 +155,14 @@ class CreateCanvas extends AllButtons {
     this.section.appendChild(this.head);
   }
 
-  public hiddenMainContainerElements(): void {
-    let child: ChildNode | null = this.section.firstChild;
-    while (child) {
-      this.section.removeChild(child);
-      child = this.section.firstChild;
-    }
-    this.section.classList.add('main-new-container');
-  }
+  // public hiddenMainContainerElements(): void {
+  //   let child: ChildNode | null = this.section.firstChild;
+  //   while (child) {
+  //     this.section.removeChild(child);
+  //     child = this.section.firstChild;
+  //   }
+  //   this.section.classList.add('main-new-container');
+  // }
 
   public appendSection(): void {
     this.section.appendChild(this.form);
@@ -174,97 +174,97 @@ class CreateCanvas extends AllButtons {
     this.section.appendChild(this.par);
   }
 
-  public startSpin(duration: number = 5000, fullCircles: number = 5): void {
-    const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
-    const rand = Math.random();
-    let cumulative = 0;
-    let selectedIndex = 0;
+  // public startSpin(duration: number = 5000, fullCircles: number = 5): void {
+  //   const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
+  //   const rand = Math.random();
+  //   let cumulative = 0;
+  //   let selectedIndex = 0;
 
-    for (let i = 0; i < this.data.list.length; i += 1) {
-      cumulative += Number(this.data.list[i].weight) / totalWeight;
-      if (rand <= cumulative) {
-        selectedIndex = i;
-        break;
-      }
-    }
+  //   for (let i = 0; i < this.data.list.length; i += 1) {
+  //     cumulative += Number(this.data.list[i].weight) / totalWeight;
+  //     if (rand <= cumulative) {
+  //       selectedIndex = i;
+  //       break;
+  //     }
+  //   }
 
-    const totalAngle = Math.PI * 2;
-    let startAngle = 0;
-    for (let i = 0; i < selectedIndex; i += 1) {
-      startAngle += (Number(this.data.list[i].weight) / totalWeight) * totalAngle;
-    }
-    const sectorFraction = Number(this.data.list[selectedIndex].weight) / totalWeight;
-    const sectorMidPoint = startAngle + (sectorFraction * totalAngle) / 2;
-    const targetAngle = Math.abs(Math.PI / 2 - sectorMidPoint);
+  //   const totalAngle = Math.PI * 2;
+  //   let startAngle = 0;
+  //   for (let i = 0; i < selectedIndex; i += 1) {
+  //     startAngle += (Number(this.data.list[i].weight) / totalWeight) * totalAngle;
+  //   }
+  //   const sectorFraction = Number(this.data.list[selectedIndex].weight) / totalWeight;
+  //   const sectorMidPoint = startAngle + (sectorFraction * totalAngle) / 2;
+  //   const targetAngle = Math.abs(Math.PI / 2 - sectorMidPoint);
 
-    const totalRotation = targetAngle + fullCircles * 2 * Math.PI;
+  //   const totalRotation = targetAngle + fullCircles * 2 * Math.PI;
 
-    if (this.animationId) cancelAnimationFrame(this.animationId);
+  //   if (this.animationId) cancelAnimationFrame(this.animationId);
 
-    const startTime = performance.now();
-    const initialAngle = this.rotationAngle;
+  //   const startTime = performance.now();
+  //   const initialAngle = this.rotationAngle;
 
-    const animate = (currentTime: number): void => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = 1 - (1 - progress) ** 3;
+  //   const animate = (currentTime: number): void => {
+  //     const elapsed = currentTime - startTime;
+  //     const progress = Math.min(elapsed / duration, 1);
+  //     const easedProgress = 1 - (1 - progress) ** 3;
 
-      this.rotationAngle = initialAngle + easedProgress * totalRotation;
+  //     this.rotationAngle = initialAngle + easedProgress * totalRotation;
 
-      this.drawStatic();
-      this.drawWheel();
+  //     this.drawStatic();
+  //     this.drawWheel();
 
-      const currentAngle = (this.rotationAngle % (Math.PI * 2)) + Math.PI;
-      const currentSectorLabel = this.getSectorLabelByAngle(currentAngle);
-      this.par.textContent = `${currentSectorLabel}`;
+  //     const currentAngle = (this.rotationAngle % (Math.PI * 2)) + Math.PI;
+  //     const currentSectorLabel = this.getSectorLabelByAngle(currentAngle);
+  //     this.par.textContent = `${currentSectorLabel}`;
 
-      if (progress < 1) {
-        this.animationId = requestAnimationFrame(animate);
-      } else {
-        this.rotationAngle = initialAngle + totalRotation;
-        this.drawStatic();
-        this.drawWheel();
+  //     if (progress < 1) {
+  //       this.animationId = requestAnimationFrame(animate);
+  //     } else {
+  //       this.rotationAngle = initialAngle + totalRotation;
+  //       this.drawStatic();
+  //       this.drawWheel();
 
-        const finalAngle = (this.rotationAngle % (Math.PI * 2)) + Math.PI;
-        const finalSectorLabel = this.getSectorLabelByAngle(finalAngle);
-        this.par.textContent = `Result: ${finalSectorLabel}`;
+  //       const finalAngle = (this.rotationAngle % (Math.PI * 2)) + Math.PI;
+  //       const finalSectorLabel = this.getSectorLabelByAngle(finalAngle);
+  //       this.par.textContent = `Result: ${finalSectorLabel}`;
 
-        this.animationId = null;
-      }
-    };
+  //       this.animationId = null;
+  //     }
+  //   };
 
-    this.animationId = requestAnimationFrame(animate);
-    setTimeout(
-      () => {
-        this.soundPlay();
-        this.form.style.pointerEvents = 'auto';
-        this.form.style.opacity = '1.0';
-      },
-      Number(this.timerInput.value) * 1000
-    );
-  }
+  //   this.animationId = requestAnimationFrame(animate);
+  //   setTimeout(
+  //     () => {
+  //       this.soundPlay();
+  //       this.form.style.pointerEvents = 'auto';
+  //       this.form.style.opacity = '1.0';
+  //     },
+  //     Number(this.timerInput.value) * 1000
+  //   );
+  // }
 
-  private getSectorLabelByAngle(currentRotation: number): string {
-    const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
-    const pointerPosition = (Math.PI / 2 - currentRotation) % (2 * Math.PI);
-    const normalizedPointer = (pointerPosition + 2 * Math.PI) % (2 * Math.PI);
+  // private getSectorLabelByAngle(currentRotation: number): string {
+  //   const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
+  //   const pointerPosition = (Math.PI / 2 - currentRotation) % (2 * Math.PI);
+  //   const normalizedPointer = (pointerPosition + 2 * Math.PI) % (2 * Math.PI);
 
-    let startAngle = 0;
-    for (let i = 0; i < this.data.list.length; i += 1) {
-      const item = this.data.list[i];
-      const sectorFraction = Number(item.weight) / totalWeight;
-      const sectorAngle = sectorFraction * 2 * Math.PI;
+  //   let startAngle = 0;
+  //   for (let i = 0; i < this.data.list.length; i += 1) {
+  //     const item = this.data.list[i];
+  //     const sectorFraction = Number(item.weight) / totalWeight;
+  //     const sectorAngle = sectorFraction * 2 * Math.PI;
 
-      if (normalizedPointer >= startAngle && normalizedPointer < startAngle + sectorAngle) {
-        return item.title;
-      }
+  //     if (normalizedPointer >= startAngle && normalizedPointer < startAngle + sectorAngle) {
+  //       return item.title;
+  //     }
 
-      startAngle += sectorAngle;
-    }
-    return '';
-  }
+  //     startAngle += sectorAngle;
+  //   }
+  //   return '';
+  // }
 
-  private drawWheel(): void {
+  protected drawWheel(): void {
     const { ctx } = this;
     ctx.save();
 
@@ -272,14 +272,12 @@ class CreateCanvas extends AllButtons {
     ctx.rotate(this.rotationAngle);
     ctx.translate(-250, -250);
 
-    // Внешний круг (фон)
     ctx.beginPath();
     ctx.arc(250, 250, 220, 0, Math.PI * 2);
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Общие параметры
     const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
     let startAngle = 0;
     const colors = [
@@ -341,7 +339,7 @@ class CreateCanvas extends AllButtons {
     ctx.restore();
   }
 
-  private drawStatic(): void {
+  protected drawStatic(): void {
     const { ctx } = this;
 
     ctx.clearRect(0, 0, 500, 500);
@@ -358,17 +356,17 @@ class CreateCanvas extends AllButtons {
     ctx.restore();
   }
 
-  private soundPlay(): void {
-    if (localStorage.getItem('audioState') === 'silence') return;
+  // private soundPlay(): void {
+  //   if (localStorage.getItem('audioState') === 'silence') return;
 
-    const audio = new Audio(audioUrl);
-    audio.volume = 0.4;
-    audio.play();
-  }
+  //   const audio = new Audio(audioUrl);
+  //   audio.volume = 0.4;
+  //   audio.play();
+  // }
 
-  private setAudio(): void {
-    localStorage.setItem('audioState', 'play');
-  }
+  // private setAudio(): void {
+  //   localStorage.setItem('audioState', 'play');
+  // }
 }
 
 export default CreateCanvas;
