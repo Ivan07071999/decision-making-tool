@@ -1,8 +1,7 @@
 import AllButtons from '../components/buttons/createAllButtons';
 import type { ListData } from '../components/list/list';
-import './rollStyle.css';
 import audioUrl from '../assets/sound.mp3';
-import volumeOffUrl from '../assets/volumeOff.png'
+import volumeOffUrl from '../assets/volumeOff.png';
 import volumeUpUrl from '../assets/volumeUp.png';
 
 // type sectionElements = {
@@ -77,7 +76,6 @@ class CreateCanvas extends AllButtons {
         const duration = seconds * 1000;
 
         this.startSpin(duration, seconds);
-        console.log(seconds);
       }
 
       if (target.classList.contains('back-button')) {
@@ -104,7 +102,6 @@ class CreateCanvas extends AllButtons {
     this.labelSound.addEventListener('click', (event: MouseEvent) => {
       event.stopPropagation();
       event.preventDefault();
-      console.log('labelSound clicked');
 
       if (localStorage.getItem('audioState') === 'play') {
         localStorage.setItem('audioState', 'silence');
@@ -113,7 +110,6 @@ class CreateCanvas extends AllButtons {
         localStorage.setItem('audioState', 'play');
         this.labelSound.style.backgroundImage = `url(${volumeUpUrl})`;
       }
-      console.log('labelSound clicked2');
     });
   }
 
@@ -180,44 +176,33 @@ class CreateCanvas extends AllButtons {
 
   public startSpin(duration: number = 5000, fullCircles: number = 5): void {
     const totalWeight = this.data.list.reduce((sum, item) => sum + Number(item.weight), 0);
-    console.log(totalWeight);
     const rand = Math.random();
     let cumulative = 0;
     let selectedIndex = 0;
 
     for (let i = 0; i < this.data.list.length; i += 1) {
       cumulative += Number(this.data.list[i].weight) / totalWeight;
-      console.log(rand * ((180 / Math.PI) * 2), 'Рандовмно опр угол');
-      console.log(cumulative * ((180 / Math.PI) * 2), `${i}-№ сектора`);
       if (rand <= cumulative) {
         selectedIndex = i;
-        console.log(selectedIndex, 'выбран сектор');
         break;
       }
     }
 
     const totalAngle = Math.PI * 2;
-    console.log(totalAngle * (180 / Math.PI), 'Общий угол');
     let startAngle = 0;
     for (let i = 0; i < selectedIndex; i += 1) {
       startAngle += (Number(this.data.list[i].weight) / totalWeight) * totalAngle;
-      console.log(startAngle * ((180 / Math.PI) * 2), 'стартовый угол');
     }
     const sectorFraction = Number(this.data.list[selectedIndex].weight) / totalWeight;
-    console.log(sectorFraction * (180 / Math.PI), 'сектор');
     const sectorMidPoint = startAngle + (sectorFraction * totalAngle) / 2;
-    console.log(sectorMidPoint * (180 / Math.PI), 'сектор средней точки');
     const targetAngle = Math.abs(Math.PI / 2 - sectorMidPoint);
-    console.log(targetAngle * (180 / Math.PI), 'Целевой угол');
 
     const totalRotation = targetAngle + fullCircles * 2 * Math.PI;
-    console.log(totalRotation * (180 / Math.PI), 'полное вращение');
 
     if (this.animationId) cancelAnimationFrame(this.animationId);
 
     const startTime = performance.now();
     const initialAngle = this.rotationAngle;
-    console.log(initialAngle * (180 / Math.PI), 'Текущий угол перед запуском');
 
     const animate = (currentTime: number): void => {
       const elapsed = currentTime - startTime;
@@ -225,15 +210,12 @@ class CreateCanvas extends AllButtons {
       const easedProgress = 1 - (1 - progress) ** 3;
 
       this.rotationAngle = initialAngle + easedProgress * totalRotation;
-      console.log(this.rotationAngle * (180 / Math.PI) + Math.PI, 'Обновленный угол, начиная с текущего');
 
       this.drawStatic();
       this.drawWheel();
 
       const currentAngle = (this.rotationAngle % (Math.PI * 2)) + Math.PI;
-      console.log(currentAngle, 'Обновленный сектор');
       const currentSectorLabel = this.getSectorLabelByAngle(currentAngle);
-      console.log(currentSectorLabel, 'Текущий сектор на барабане');
       this.par.textContent = `${currentSectorLabel}`;
 
       if (progress < 1) {
@@ -271,7 +253,6 @@ class CreateCanvas extends AllButtons {
     for (let i = 0; i < this.data.list.length; i += 1) {
       const item = this.data.list[i];
       const sectorFraction = Number(item.weight) / totalWeight;
-      console.log(sectorFraction);
       const sectorAngle = sectorFraction * 2 * Math.PI;
 
       if (normalizedPointer >= startAngle && normalizedPointer < startAngle + sectorAngle) {

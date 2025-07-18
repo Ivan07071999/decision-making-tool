@@ -144,24 +144,20 @@ class CustomList extends MainSection {
       return;
     }
 
-    try {
-      const data: ListData = JSON.parse(dataString);
-      const jsonStr: string = JSON.stringify(data);
-      const blob = new Blob([jsonStr], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+    const data: ListData = JSON.parse(dataString);
+    const jsonStr: string = JSON.stringify(data);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
 
-      a.href = url;
-      a.download = 'listData.json';
+    a.href = url;
+    a.download = 'listData.json';
 
-      document.body.appendChild(a);
-      a.click();
+    document.body.appendChild(a);
+    a.click();
 
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error(`Ошибка: ${error}`);
-    }
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   public loadListFromFile(): void {
@@ -172,34 +168,28 @@ class CustomList extends MainSection {
     input.style.display = 'none';
 
     document.body.appendChild(input);
-    console.log(input);
 
     input.addEventListener('change', () => {
       if (input.files && input.files.length > 0) {
         this.selectedFile = input.files?.[0] || null;
-        console.log('Выбран файл:', this.selectedFile.name);
         this.clearList();
         this.readFileAndSave()
           .then(() => {
             this.addLoadItem();
           })
           .catch((error) => {
-            console.error('Ошибка:', error);
+            throw error;
           });
-      } else {
-        console.log('Файлы не выбраны');
       }
       document.body.removeChild(input);
     });
 
     input.click();
-    console.log('работает');
   }
 
   public readFileAndSave(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!this.selectedFile) {
-        console.error('Файл не выбран');
         return;
       }
 
@@ -222,30 +212,23 @@ class CustomList extends MainSection {
 
   public addLoadItem(): void {
     if (!this.listContainer) {
-      console.error('listContainer не найден');
       return;
     }
     const dataStr = localStorage.getItem('myListData');
     if (!dataStr) {
-      console.warn('Нет данных в localStorage');
       return;
     }
 
     const data: { list: ListItem[] } = JSON.parse(dataStr);
 
     if (!this.listContainer) {
-      console.error('listContainer не найден');
       return;
     }
 
-    console.log(data, 'Data');
-
     const inputsArray: ListItem[] = data.list;
-    console.log(inputsArray);
 
     for (let i = 0; i < inputsArray.length; i += 1) {
       const newListItem = this.createListElement();
-      console.log(newListItem);
       newListItem.titleInput.value = inputsArray[i].title;
       newListItem.weightsInput.value = inputsArray[i].weight;
     }
@@ -323,12 +306,10 @@ title with "quotes",4      ->| title with "quotes";      | 4 |`;
 
   public dataValidationCheck(): number {
     const listContainer = this.listContainer.childNodes.length;
-    console.log(listContainer);
     const inputTitle: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-title');
     const inputWeight: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-weight');
     const titleArr: HTMLInputElement[] = Array.from(inputTitle);
     const weightArr: HTMLInputElement[] = Array.from(inputWeight);
-    console.log(titleArr, weightArr);
 
     if (listContainer < 2) {
       this.createValidationWindow();
@@ -337,7 +318,6 @@ title with "quotes",4      ->| title with "quotes";      | 4 |`;
 
     for (let i = 0; i < titleArr.length; i += 1) {
       if (titleArr[i].value.trim().length === 0 && weightArr[i].value === '') {
-        console.log('невалидная хуйня', titleArr.length);
         this.createValidationWindow();
         return 0;
       }

@@ -100,6 +100,7 @@
   background: #333;
   justify-content: center;
   align-items: center;
+  text-align: center;
   box-shadow: 
   -5px -5px 15px #444, 
   5px 5px 15px #222, 
@@ -109,6 +110,7 @@
   cursor: pointer;
   border: none;
   transition: 500ms;
+  padding-left: 0;
 }
 
 .validation-button:hover,
@@ -206,6 +208,18 @@
   box-shadow: 0 0 0 2.5px 
   #2f303d;
 }
+
+@media (width <= 780px) {
+  .validation-container,
+  .past-list {
+    width: 460px;
+}
+
+}
+
+/* @media (width <= 420px) {
+
+} */
 
 
 
