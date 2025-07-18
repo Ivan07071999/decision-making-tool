@@ -1,7 +1,8 @@
-import CustomList from '../list/list';
+import Data from '../list/data';
+// import CustomList from '../list/list';
 import './buttons.css';
 
-class Buttons extends CustomList {
+class Buttons extends Data {
   protected button: HTMLButtonElement;
 
   constructor(buttonsClassName: string, buttonsTextContent: string) {

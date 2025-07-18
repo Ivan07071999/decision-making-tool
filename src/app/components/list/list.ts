@@ -1,7 +1,7 @@
 import MainSection from '../../app';
 import './styleList.css';
 
-type ListItem = {
+export type ListItem = {
   id: string;
   title: string;
   weight: string;
@@ -28,8 +28,6 @@ class CustomList extends MainSection {
   protected pastList: HTMLElement = document.createElement('div');
 
   protected textArea: HTMLTextAreaElement = document.createElement('textarea');
-
-  private selectedFile: File | null = null;
 
   constructor() {
     super();
@@ -93,149 +91,6 @@ class CustomList extends MainSection {
     this.section.appendChild(this.listContainer);
   }
 
-  public clearList(): void {
-    let child: ChildNode | null = this.listContainer.firstChild;
-    this.itemCount = 0;
-    while (child) {
-      this.listContainer.removeChild(child);
-      child = this.listContainer.firstChild;
-    }
-  }
-
-  public saveListToLocalStorage(): void {
-    const inputTitle: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-title');
-    const inputWeight: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-weight');
-    const titleArr: HTMLInputElement[] = Array.from(inputTitle);
-    const weightArr: HTMLInputElement[] = Array.from(inputWeight);
-
-    const list1 = [];
-    let maxId = 0;
-
-    for (let i = 0; i < titleArr.length; i += 1) {
-      const titleValue = titleArr[i].value;
-      const weightValue = weightArr[i].value;
-
-      const idNumber = i + 1;
-      const id1 = `#${idNumber}`;
-
-      if (idNumber > maxId) {
-        maxId = idNumber;
-      }
-
-      list1.push({
-        id: id1,
-        title: titleValue,
-        weight: weightValue,
-      });
-    }
-
-    const dataToSave = {
-      list: list1,
-      lastId: maxId,
-    };
-
-    localStorage.setItem('myListData', JSON.stringify(dataToSave));
-  }
-
-  public downloadFile(): void {
-    const dataString: string | null = localStorage.getItem('myListData');
-
-    if (!dataString) {
-      return;
-    }
-
-    const data: ListData = JSON.parse(dataString);
-    const jsonStr: string = JSON.stringify(data);
-    const blob = new Blob([jsonStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-
-    a.href = url;
-    a.download = 'listData.json';
-
-    document.body.appendChild(a);
-    a.click();
-
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  public loadListFromFile(): void {
-    const input: HTMLInputElement = document.createElement('input');
-    input.type = 'file';
-
-    input.accept = '.json';
-    input.style.display = 'none';
-
-    document.body.appendChild(input);
-
-    input.addEventListener('change', () => {
-      if (input.files && input.files.length > 0) {
-        this.selectedFile = input.files?.[0] || null;
-        this.clearList();
-        this.readFileAndSave()
-          .then(() => {
-            this.addLoadItem();
-          })
-          .catch((error) => {
-            throw error;
-          });
-      }
-      document.body.removeChild(input);
-    });
-
-    input.click();
-  }
-
-  public readFileAndSave(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (!this.selectedFile) {
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (event: ProgressEvent<FileReader>): void => {
-        const result = event.target?.result;
-        if (typeof result === 'string') {
-          try {
-            const jsonData = JSON.parse(result);
-            localStorage.setItem('myListData', JSON.stringify(jsonData));
-            resolve();
-          } catch (e) {
-            reject(e);
-          }
-        }
-      };
-      reader.readAsText(this.selectedFile);
-    });
-  }
-
-  public addLoadItem(): void {
-    if (!this.listContainer) {
-      return;
-    }
-    const dataStr = localStorage.getItem('myListData');
-    if (!dataStr) {
-      return;
-    }
-
-    const data: { list: ListItem[] } = JSON.parse(dataStr);
-
-    if (!this.listContainer) {
-      return;
-    }
-
-    const inputsArray: ListItem[] = data.list;
-
-    for (let i = 0; i < inputsArray.length; i += 1) {
-      const newListItem = this.createListElement();
-      newListItem.titleInput.value = inputsArray[i].title;
-      newListItem.weightsInput.value = inputsArray[i].weight;
-    }
-
-    this.itemCount = inputsArray.length;
-  }
-
   public createPasteList(): void {
     document.body.appendChild(this.pastListContainer);
     this.pastListContainer.appendChild(this.pastList);
@@ -257,72 +112,6 @@ title with "quotes",4      ->| title with "quotes";      | 4 |`;
     this.pastList.appendChild(this.textArea);
     this.pastList.style.display = 'flex';
     this.pastList.style.flexDirection = 'column-reverse';
-  }
-
-  public textAreaToLocalStorage(): void {
-    const content = this.textArea.value.trim();
-
-    const lines = content.split('\n');
-
-    const list1: { id: string; title: string; weight: string }[] = [];
-    let lastId1 = 0;
-    let idNumber: number;
-
-    lines.forEach((line, index) => {
-      const parts = line.split(',');
-      if (parts.length === 2) {
-        const title1 = parts[0].trim();
-        const weight1 = parts[1].trim();
-        idNumber = index + 1;
-        list1.push({
-          id: `#${idNumber}`,
-          title: title1,
-          weight: weight1,
-        });
-        if (idNumber > lastId1) {
-          lastId1 = idNumber;
-        }
-      }
-    });
-
-    const result = {
-      list: list1,
-      lastId: lastId1,
-    };
-
-    localStorage.setItem('myListData', JSON.stringify(result));
-    this.itemCount = lines.length;
-    this.pastListContainer.classList.remove('past-list-active');
-  }
-
-  public hiddenMainContainerElements(): void {
-    let child: ChildNode | null = this.section.firstChild;
-    while (child) {
-      this.section.removeChild(child);
-      child = this.section.firstChild;
-    }
-    this.section.classList.add('main-new-container');
-  }
-
-  public dataValidationCheck(): number {
-    const listContainer = this.listContainer.childNodes.length;
-    const inputTitle: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-title');
-    const inputWeight: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-weight');
-    const titleArr: HTMLInputElement[] = Array.from(inputTitle);
-    const weightArr: HTMLInputElement[] = Array.from(inputWeight);
-
-    if (listContainer < 2) {
-      this.createValidationWindow();
-      return 0;
-    }
-
-    for (let i = 0; i < titleArr.length; i += 1) {
-      if (titleArr[i].value.trim().length === 0 && weightArr[i].value === '') {
-        this.createValidationWindow();
-        return 0;
-      }
-    }
-    return 1;
   }
 
   public createValidationWindow(): void {
