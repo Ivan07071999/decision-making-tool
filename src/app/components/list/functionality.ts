@@ -12,8 +12,8 @@ class Functionality extends CustomList {
 
   public dataValidationCheck(): number {
     const listContainer = this.listContainer.childNodes.length;
-    const inputTitle: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-title');
-    const inputWeight: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-weight');
+    const inputTitle = document.querySelectorAll<HTMLInputElement>('.input-title');
+    const inputWeight = document.querySelectorAll<HTMLInputElement>('.input-weight');
     const titleArr: HTMLInputElement[] = Array.from(inputTitle);
     const weightArr: HTMLInputElement[] = Array.from(inputWeight);
 

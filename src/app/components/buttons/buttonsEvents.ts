@@ -1,5 +1,4 @@
 import CanvasEvents from '../../services/canvasEvents';
-// import CreateCanvas from '../../services/canvas';
 
 class EventButtons extends CanvasEvents {
   [x: string]: unknown;

@@ -1,12 +1,12 @@
 import Functionality from './functionality';
-import type { ListData, ListItem } from './list';
+import type { ListData, ListElements, ListItem } from '../../typing';
 
 class Data extends Functionality {
   private selectedFile: File | null = null;
 
   public saveListToLocalStorage(): void {
-    const inputTitle: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-title');
-    const inputWeight: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input-weight');
+    const inputTitle = document.querySelectorAll<HTMLInputElement>('.input-title');
+    const inputWeight = document.querySelectorAll<HTMLInputElement>('.input-weight');
     const titleArr: HTMLInputElement[] = Array.from(inputTitle);
     const weightArr: HTMLInputElement[] = Array.from(inputWeight);
 
@@ -130,9 +130,9 @@ class Data extends Functionality {
     const inputsArray: ListItem[] = data.list;
 
     for (let i = 0; i < inputsArray.length; i += 1) {
-      const newListItem = this.createListElement();
+      const newListItem: ListElements = this.createListElement();
       newListItem.titleInput.value = inputsArray[i].title;
-      newListItem.weightsInput.value = inputsArray[i].weight;
+      newListItem.weightsInput.value = inputsArray[i].weight ?? '';
     }
 
     this.itemCount = inputsArray.length;
@@ -141,9 +141,9 @@ class Data extends Functionality {
   public textAreaToLocalStorage(): void {
     const content = this.textArea.value.trim();
 
-    const lines = content.split('\n');
+    const lines: string[] = content.split('\n');
 
-    const list1: { id: string; title: string; weight: string }[] = [];
+    const list1: ListItem[] = [];
     let lastId1 = 0;
     let idNumber: number;
 

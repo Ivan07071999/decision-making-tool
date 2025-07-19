@@ -1,22 +1,6 @@
 import MainSection from '../../app';
+import type { ListElements } from '../../typing';
 import './styleList.css';
-
-export type ListItem = {
-  id: string;
-  title: string;
-  weight: string;
-};
-
-export type ListData = {
-  list: ListItem[];
-  lastId: number;
-};
-
-type ListElements = {
-  titleInput: HTMLInputElement;
-  weightsInput: HTMLInputElement;
-  listLabel: HTMLLabelElement;
-};
 
 class CustomList extends MainSection {
   protected listContainer!: HTMLElement;

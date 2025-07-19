@@ -1,5 +1,4 @@
 import Data from '../list/data';
-// import CustomList from '../list/list';
 import './buttons.css';
 
 class Buttons extends Data {
