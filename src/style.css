@@ -6,7 +6,7 @@ body {
   font-family: Damion, cursive;
   margin: 0;
   background-color: #313131;
-  background-image: radial-gradient(#FFFFFF29 2px, transparent 0);
+  background-image: radial-gradient(#ffffff29 2px, transparent 0);
   background-size: 30px 30px;
   background-position: -5px -5px;
 }
@@ -22,7 +22,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .main-header {
@@ -40,7 +39,7 @@ body {
 }
 
 .back-button {
-  background-image: url("app/assets/replyButton.png");
+  background-image: url('app/assets/replyButton.png');
   background-size: cover;
   z-index: 2;
   background-color: #313131;
@@ -57,7 +56,7 @@ body {
 
 .button-spin {
   background-color: #313131;
-  background-image: url("app/assets/start.png");
+  background-image: url('app/assets/start.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -70,7 +69,7 @@ body {
 .label-timer {
   border: 1px solid white;
   background-color: #313131;
-  background-image: url("app/assets/timer.png");
+  background-image: url('app/assets/timer.png');
   background-size: cover;
   border-radius: 0.7rem;
   cursor: pointer;
@@ -83,7 +82,7 @@ body {
 .label-sound {
   padding: 8px;
   border: 1px solid white;
-  background-image: url("app/assets/volumeUp.png");
+  background-image: url('app/assets/volumeUp.png');
   background-color: #313131;
   background-size: contain;
   border-radius: 0.7rem;
@@ -115,9 +114,7 @@ body {
 }
 
 @media (width <= 420px) {
-    .paragraph {
-      font-size: 1.5rem;
-    }
+  .paragraph {
+    font-size: 1.5rem;
+  }
 }
-
-
