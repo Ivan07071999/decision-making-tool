@@ -23,7 +23,7 @@ class Functionality extends CustomList {
     }
 
     for (let i = 0; i < titleArr.length; i += 1) {
-      if (titleArr[i].value.trim().length === 0 && weightArr[i].value === '') {
+      if (titleArr[i].value.trim().length === 0 || weightArr[i].value === '') {
         this.createValidationWindow();
         return 0;
       }

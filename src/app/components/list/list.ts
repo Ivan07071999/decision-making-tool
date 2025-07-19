@@ -17,6 +17,16 @@ class CustomList extends MainSection {
     super();
     this.createCustomListContainer();
     this.createListElement();
+    localStorage.setItem(
+      'myListData',
+      JSON.stringify({
+        list: [
+          { id: '#1', title: 'value1', weight: '10' },
+          { id: '#2', title: 'value2', weight: '22' },
+        ],
+        lastId: 2,
+      })
+    );
   }
 
   public createCustomListContainer(): void {
