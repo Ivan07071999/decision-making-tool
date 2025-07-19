@@ -12,6 +12,13 @@ class MainSection {
 
   public appendTo(parent: HTMLElement): void {
     parent.appendChild(this.section);
+    localStorage.setItem(
+      'myListData',
+      JSON.stringify({
+        list: [{ id: '#1', title: 'value1', weight: '10' }],
+        lastId: 1,
+      })
+    );
   }
 }
 

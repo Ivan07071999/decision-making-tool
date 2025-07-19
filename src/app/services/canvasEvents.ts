@@ -12,7 +12,7 @@ class CanvasEvents extends CreateCanvas {
   public init(): void {
     localStorage.setItem('audioState', 'play');
     this.getData = localStorage.getItem('myListData');
-    this.data = JSON.parse(this.getData || '{"list": [], "lastId": 0}');
+    this.data = JSON.parse(this.getData || '{ list: [{ id: "#1", title: "value", weight: "5" }], lastId: 1 }');
     this.hiddenMainContainerElements();
     this.createHad();
     this.createFormElements();
